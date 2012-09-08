@@ -5,20 +5,19 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 
 import com.liqingyi.mapbo.actionbarcompat.BaseActivity;
-import com.liqingyi.mapbo.fragment.CommentsFragment;
+import com.liqingyi.mapbo.fragment.SelectCityFragment;
 
-public class CommentsActivity extends BaseActivity {
+public class SelectActivity extends BaseActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_comments);
-		String id = getIntent().getStringExtra("id");
+		setContentView(R.layout.activity_select);
 
 		FragmentTransaction transaction = getFragmentManager()
 				.beginTransaction();
-		Fragment fragment = CommentsFragment.newInstance(id);
-		transaction.add(R.id.created_comments, fragment);
+		Fragment fragment = new SelectCityFragment();
+		transaction.add(R.id.created_select, fragment);
 		transaction.commit();
 
 	}

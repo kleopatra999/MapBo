@@ -18,7 +18,11 @@ import android.widget.TextView;
 public class PoiShowFragment extends Fragment {
 
 	private Poi poi;
+	private TextView title;
+	private TextView address;
 	private TextView extra;
+	private TextView transport;
+	private TextView circle;
 
 	public static PoiShowFragment newInstance(Poi poi) {
 		PoiShowFragment fragment = new PoiShowFragment();
@@ -33,6 +37,7 @@ public class PoiShowFragment extends Fragment {
 		Bundle args = getArguments();
 		if (args != null) {
 			poi = args.getParcelable("poi");
+
 		}
 		super.onCreate(savedInstanceState);
 	}
@@ -42,9 +47,14 @@ public class PoiShowFragment extends Fragment {
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_poi_show, container,
 				false);
+		title = (TextView) view.findViewById(R.id.poi_show_title);
+		address = (TextView) view.findViewById(R.id.poi_show_address);
 		extra = (TextView) view.findViewById(R.id.poi_show_extra);
+		transport = (TextView) view.findViewById(R.id.poi_show_transport);
+		circle = (TextView) view.findViewById(R.id.poi_show_circle);
 
 		new LoadPoiShowTasks().execute(Weibo.getInstance());
+
 		return view;
 	}
 
@@ -81,7 +91,11 @@ public class PoiShowFragment extends Fragment {
 			System.out.println(result);
 			Gson gson = new Gson();
 			Poi poi = gson.fromJson(result, Poi.class);
-			extra.setText(poi.getTitle());
+			title.setText(poi.getTitle());
+			address.setText(poi.getAddress());
+			extra.setText(poi.getExtra());
+			transport.setText(poi.getTransport());
+			circle.setText(poi.getCircle());
 			super.onPostExecute(result);
 		}
 

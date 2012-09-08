@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
@@ -11,23 +11,44 @@
         android:hint="关键字"
         android:inputType="textNoSuggestions" />
 
-    <EditText
-        android:id="@+id/search_radius"
+    <Spinner
+        android:id="@+id/category_spinner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="半径"
-        android:inputType="textNoSuggestions" />
+        android:layout_height="48dp"
+        android:layout_below="@+id/search_keyword"
+        android:drawSelectorOnTop="true"
+        android:prompt="@string/category_spinner_string" />
 
     <Button
         android:id="@+id/search_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/category_spinner"
+        android:text="列表" />
 
-    <FrameLayout
-        android:id="@+id/created_google_place"
+    <Button
+        android:id="@+id/map_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:layout_alignBottom="@+id/search_button"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/category_spinner"
+        android:text="地图" />
 
-</LinearLayout>
+    <Button
+        android:id="@+id/select_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/search_button"
+        android:layout_below="@+id/category_spinner"
+        android:layout_toRightOf="@+id/search_button"
+        android:text="选择" />
+
+    <FrameLayout
+        android:id="@+id/created_poi_place"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/map_button" />
+
+</RelativeLayout>

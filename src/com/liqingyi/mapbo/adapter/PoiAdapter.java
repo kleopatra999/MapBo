@@ -1,12 +1,6 @@
 package com.liqingyi.mapbo.adapter;
 
 import java.util.ArrayList;
-
-import com.liqingyi.mapbo.R;
-import com.liqingyi.mapbo.model.Poi;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +8,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.liqingyi.mapbo.R;
+import com.liqingyi.mapbo.model.Poi;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class PoiAdapter extends BaseAdapter {
 	private DisplayImageOptions options;
@@ -26,7 +24,7 @@ public class PoiAdapter extends BaseAdapter {
 		this.mPois = pois;
 		this.mInflater = LayoutInflater.from(context);
 		options = new DisplayImageOptions.Builder()
-				.showStubImage(R.drawable.ic_launcher).cacheInMemory()
+				.showStubImage(R.drawable.icon_picture).cacheInMemory()
 				.cacheOnDisc().build();
 		imageLoader = ImageLoader.getInstance();
 	}
@@ -57,24 +55,31 @@ public class PoiAdapter extends BaseAdapter {
 			holder.title = (TextView) convertView.findViewById(R.id.title);
 			holder.address = (TextView) convertView.findViewById(R.id.address);
 
-			holder.category_name = (TextView) convertView
-					.findViewById(R.id.category_name);
 			holder.distance = (TextView) convertView
 					.findViewById(R.id.distance);
+
+			holder.checkin_num = (TextView) convertView
+					.findViewById(R.id.checkin_num);
+
+			holder.photo_num = (TextView) convertView
+					.findViewById(R.id.photo_num);
 
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		Poi poi = getItem(position);
+		final Poi poi = getItem(position);
 		imageLoader.displayImage(poi.getIcon(), holder.icon, options);
 		holder.title.setText(poi.getTitle());
-		holder.category_name.setText(poi.getCategory_name());
-		holder.distance.setText(Long.toString(poi.getDistance()));
+		holder.distance.setText("距您:" + Long.toString(poi.getDistance()) + "米");
 
 		System.out.println(poi.getTitle());
 		holder.address.setText(poi.getAddress());
+
+		holder.checkin_num.setText("签到:" + Long.toString(poi.getCheckin_num()));
+
+		holder.photo_num.setText("照片:" + Long.toString(poi.getPhoto_num()));
 
 		return convertView;
 	}
@@ -83,8 +88,10 @@ public class PoiAdapter extends BaseAdapter {
 		ImageView icon;
 		TextView title;
 		TextView address;
-		TextView category_name;
 		TextView distance;
+		TextView checkin_num;
+		TextView photo_num;
+
 	}
 
 }

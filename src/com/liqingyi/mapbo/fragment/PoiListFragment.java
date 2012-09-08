@@ -19,6 +19,7 @@ import com.liqingyi.mapbo.adapter.PoiAdapter;
 import com.liqingyi.mapbo.model.Geo;
 import com.liqingyi.mapbo.model.Poi;
 import com.liqingyi.mapbo.model.PoiList;
+import com.liqingyi.mapbo.model.SearchParameter;
 import com.liqingyi.mapbo.model.User;
 import com.liqingyi.mapbo.pulltorefresh.PullToRefreshBase.OnRefreshListener;
 import com.liqingyi.mapbo.pulltorefresh.PullToRefreshListView;
@@ -31,7 +32,8 @@ public class PoiListFragment extends Fragment {
 
 	private User user;
 	private Geo geo;
-	private String keyword;
+	// private String keyword;
+	private SearchParameter searchParameter;
 
 	private PoiAdapter adapter;
 	private PullToRefreshListView mPullToRefreshListView;
@@ -39,12 +41,14 @@ public class PoiListFragment extends Fragment {
 	private ArrayList<Poi> pois;
 	private int page = 1;
 
-	public static PoiListFragment newInstance(User user, Geo geo, String keyword) {
+	public static PoiListFragment newInstance(User user, Geo geo,
+			SearchParameter searchParameter) {
 		PoiListFragment fragment = new PoiListFragment();
 		Bundle bundle = new Bundle();
 		bundle.putParcelable("user", user);
 		bundle.putParcelable("geo", geo);
-		bundle.putString("keyword", keyword);
+		bundle.putParcelable("search", searchParameter);
+
 		fragment.setArguments(bundle);
 		return fragment;
 	}
@@ -55,7 +59,7 @@ public class PoiListFragment extends Fragment {
 		if (args != null) {
 			user = args.getParcelable("user");
 			geo = args.getParcelable("geo");
-			keyword = args.getString("keyword");
+			searchParameter = args.getParcelable("search");
 		}
 
 		super.onCreate(savedInstanceState);
@@ -115,7 +119,7 @@ public class PoiListFragment extends Fragment {
 				return checkInsPois(params[0]);
 			}
 
-			if (keyword != null && !"".equals(keyword)) {
+			if (searchParameter != null) {
 				return searchPoi(params[0]);
 			}
 
@@ -220,14 +224,15 @@ public class PoiListFragment extends Fragment {
 		WeiboParameters bundle = new WeiboParameters();
 		bundle.add("source", Weibo.getAppKey());
 		try {
-			bundle.add("keyword", URLDecoder.decode(keyword, "UTF-8"));
+			bundle.add("keyword",
+					URLDecoder.decode(searchParameter.getKeyword(), "UTF-8"));
 		} catch (UnsupportedEncodingException e1) {
 			e1.printStackTrace();
 		}
-		bundle.add("city", "0010");
-		bundle.add("category", "");
-		bundle.add("count", "10");
-		bundle.add("page", "1");
+		bundle.add("city", searchParameter.getCity());
+		bundle.add("category", searchParameter.getCategory());
+		bundle.add("count", "8");
+		bundle.add("page", Integer.toString(page));
 
 		try {
 			return parameter.request(getActivity(), url, bundle,

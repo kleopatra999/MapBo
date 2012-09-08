@@ -2,20 +2,24 @@ package com.liqingyi.mapbo.adapter;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+
+import android.content.Context;
+import android.content.Intent;
+import android.text.Html;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.liqingyi.mapbo.CommentActivity;
 import com.liqingyi.mapbo.R;
 import com.liqingyi.mapbo.model.Status;
 import com.liqingyi.mapbo.util.UIUtils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-
-import android.content.Context;
-import android.text.Html;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 public class TimeLineAdapter extends BaseAdapter {
 
@@ -23,6 +27,7 @@ public class TimeLineAdapter extends BaseAdapter {
 	private ImageLoader imageLoader;
 	private LayoutInflater mInflater;
 	private ArrayList<Status> list;
+	private Context context;
 
 	public TimeLineAdapter(Context context, ArrayList<Status> list) {
 		super();
@@ -32,6 +37,8 @@ public class TimeLineAdapter extends BaseAdapter {
 				.showStubImage(R.drawable.ic_launcher).cacheInMemory()
 				.cacheOnDisc().build();
 		imageLoader = ImageLoader.getInstance();
+
+		this.context = context;
 	}
 
 	@Override
@@ -70,12 +77,20 @@ public class TimeLineAdapter extends BaseAdapter {
 					.findViewById(R.id.timeline_source);
 			holder.screen_name = (TextView) convertView
 					.findViewById(R.id.timeline_screen_name);
+			holder.comments_count = (TextView) convertView
+					.findViewById(R.id.timeline_comments_count);
+
+			holder.reposts_count = (TextView) convertView
+					.findViewById(R.id.timeline_reposts_count);
 
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		Status status = getItem(position);
+		final Status status = getItem(position);
+
+		if (status.getComments_count() > 0)
+			System.out.println("*********" + status.getId());
 
 		imageLoader.displayImage(status.getUser().getProfile_image_url(),
 				holder.imageView, options);
@@ -89,6 +104,25 @@ public class TimeLineAdapter extends BaseAdapter {
 		holder.text.setText(status.getText());
 		holder.screen_name.setText(status.getUser().getScreen_name());
 		holder.source.setText(Html.fromHtml(status.getSource()));
+
+		holder.comments_count.setText("评论数："
+				+ Long.toString(status.getComments_count()));
+
+		holder.comments_count.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(context, CommentActivity.class);
+				intent.putExtra("id", status.getIdstr());
+				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+				context.startActivity(intent);
+			}
+		});
+
+		holder.reposts_count.setText("转发数"
+				+ Long.toString(status.getReposts_count()));
+
 		return convertView;
 	}
 
@@ -98,6 +132,8 @@ public class TimeLineAdapter extends BaseAdapter {
 		TextView text;
 		TextView source;
 		TextView screen_name;
+		TextView comments_count;
+		TextView reposts_count;
 	}
 
 }

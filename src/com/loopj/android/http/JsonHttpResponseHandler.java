@@ -95,7 +95,8 @@ public class JsonHttpResponseHandler extends AsyncHttpResponseHandler {
         }
     }
 
-    protected void handleSuccessJsonMessage(Object jsonResponse) {
+    @SuppressWarnings("deprecation")
+	protected void handleSuccessJsonMessage(Object jsonResponse) {
         if(jsonResponse instanceof JSONObject) {
             onSuccess((JSONObject)jsonResponse);
         } else if(jsonResponse instanceof JSONArray) {

@@ -16,6 +16,17 @@
 
 <resources>
 
+    <!-- The ID of the MenuDrawer. -->
+    <item name="md__layout" type="id"/>
+
+    <!-- The ID of the content container. -->
+    <item name="md__content" type="id"/>
+
+    <!-- The ID of the menu container. -->
+    <item name="md__menu" type="id"/>
+
+    <!-- Used with View#setTag(int) to specify a position for the active view. -->
+    <item name="mdActiveViewPosition" type="id"/>
     <item name="gridview" type="id"/>
     <item name="webview" type="id"/>
     <item name="actionbar_compat" type="id"/>
@@ -23,5 +34,7 @@
     <item name="actionbar_compat_item_refresh_progress" type="id"/>
     <item name="actionbar_compat_item_refresh" type="id"/>
     <item name="menu_refresh" type="id"/>
+    <item name="balloon_inner_layout" type="id"/>
+    <item name="balloon_close" type="id"/>
 
 </resources>

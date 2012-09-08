@@ -5,69 +5,60 @@
     android:orientation="vertical" >
 
     <ImageView
+        android:id="@+id/photo_profile_image_url"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="8dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/icon_picture" />
+
+    <ImageView
         android:id="@+id/photo_thumbnail_pic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="8dp"
+        android:layout_alignTop="@+id/photo_profile_image_url"
+        android:layout_toRightOf="@+id/photo_profile_image_url"
         android:contentDescription="@string/app_name"
-        android:scaleType="centerCrop"
-        android:src="@drawable/icon" />
+        android:maxHeight="128dp"
+        android:minHeight="100dp"
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/photo_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/photo_thumbnail_pic"
         android:layout_below="@+id/photo_thumbnail_pic"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textColor="@color/holo_purple"
+        android:textSize="12sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/photo_created_at"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/photo_thumbnail_pic"
         android:layout_below="@+id/photo_title"
-        android:gravity="center"
         android:text="TextView"
         android:textSize="12sp" />
-
-    <!--
-         <TextView
-        android:id="@+id/photo_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/photo_created_at"
-        android:text="TextView"
-         />
-    -->
-
-    <TextView
-        android:id="@+id/photo_source"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/photo_created_at"
-        android:text="TextView" />
 
     <TextView
         android:id="@+id/photo_screen_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/photo_source"
+        android:layout_alignLeft="@+id/photo_thumbnail_pic"
+        android:layout_below="@+id/photo_created_at"
         android:text="TextView" />
 
     <TextView
         android:id="@+id/photo_distance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/photo_thumbnail_pic"
         android:layout_below="@+id/photo_screen_name"
         android:text="TextView" />
-
-    <ImageView
-        android:id="@+id/photo_profile_image_url"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/photo_distance"
-        android:background="@drawable/background_profile_image_url"
-        android:contentDescription="@string/app_name" />
 
 </RelativeLayout>

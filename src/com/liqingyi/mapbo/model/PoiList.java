@@ -14,7 +14,7 @@ import android.os.Parcelable;
 public class PoiList implements Parcelable {
 
 	public static PoiList initializePoiList(String json) {
-		
+
 		Type poiType = new TypeToken<ArrayList<Poi>>() {
 		}.getType();
 

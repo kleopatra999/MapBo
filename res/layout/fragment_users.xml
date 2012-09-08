@@ -4,11 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <com.liqingyi.mapbo.pulltorefresh.PullToRefreshListView
+    <com.liqingyi.mapbo.pulltorefresh.PullToRefreshGridView
         xmlns:ptr="http://schemas.android.com/apk/res-auto"
         android:id="@+id/list_users"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:numColumns="3"
+        android:stretchMode="columnWidth"
         ptr:ptrMode="pullUpFromBottom" />
 
 </LinearLayout>

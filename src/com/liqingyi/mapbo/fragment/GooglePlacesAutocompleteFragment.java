@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 public class GooglePlacesAutocompleteFragment extends Fragment {
@@ -27,6 +29,16 @@ public class GooglePlacesAutocompleteFragment extends Fragment {
 
 		listView = (ListView) view
 				.findViewById(R.id.google_place_autocomplete_list);
+
+		listView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 		return view;
 	}
 

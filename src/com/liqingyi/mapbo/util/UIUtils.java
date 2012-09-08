@@ -2,6 +2,7 @@ package com.liqingyi.mapbo.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -18,7 +19,10 @@ import android.graphics.Rect;
  */
 public class UIUtils {
 
+	public static final String ACCESSTOKEN_FILE = "accesstoken_file";
+
 	// Thu Aug 16 20:48:33 +0800 2012
+
 	private static final SimpleDateFormat dateFormat = new SimpleDateFormat(
 			"EEE MMM d HH:mm:ss Z yyyy");
 	private static final SimpleDateFormat format = new SimpleDateFormat(
@@ -27,6 +31,15 @@ public class UIUtils {
 	public static String formatCreated_at(String string) throws ParseException {
 		Date date = dateFormat.parse(string);
 		return format.format(date);
+	}
+
+	public static String formatLength(String string) throws ParseException {
+
+		Date calendar = Calendar.getInstance().getTime();
+		Date date = dateFormat.parse(string);
+		long l = calendar.getTime() - date.getTime();
+		long year = 1000 * 60 * 60 * 24;
+		return "注册" + Long.toString(l / year) + "天";
 	}
 
 	public static Bitmap drawableToBitmap(Drawable drawable) {
@@ -45,7 +58,7 @@ public class UIUtils {
 
 	public static Bitmap getCircleBitmap(Bitmap bitmap) {
 		int x = bitmap.getWidth();
-//		int y=bitmap.getHeight();
+		// int y=bitmap.getHeight();
 		Bitmap output = Bitmap.createBitmap(x, x, Config.ARGB_8888);
 		Canvas canvas = new Canvas(output);
 
@@ -57,7 +70,7 @@ public class UIUtils {
 		paint.setColor(color);
 		// 画出一个圆
 		canvas.drawCircle(x / 2, x / 2, x / 2, paint);
-//		canvas.translate(-25, -6);
+		// canvas.translate(-25, -6);
 		// 取两层绘制交集,显示上层
 		paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
 		// 将图片画上去

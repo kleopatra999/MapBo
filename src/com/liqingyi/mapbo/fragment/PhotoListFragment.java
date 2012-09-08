@@ -61,6 +61,13 @@ public class PhotoListFragment extends Fragment implements OnClickListener {
 	}
 
 	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		outState.putParcelableArrayList("list", list);
+		outState.putInt("page", page);
+		super.onSaveInstanceState(outState);
+	}
+
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
 		Bundle args = getArguments();
@@ -70,7 +77,7 @@ public class PhotoListFragment extends Fragment implements OnClickListener {
 			geo = args.getParcelable("geo");
 
 			options = new DisplayImageOptions.Builder()
-					.showStubImage(R.drawable.ic_launcher).cacheInMemory()
+					.showStubImage(R.drawable.orign_picture).cacheInMemory()
 					.cacheOnDisc().build();
 			imageLoader = ImageLoader.getInstance();
 		}
@@ -132,7 +139,6 @@ public class PhotoListFragment extends Fragment implements OnClickListener {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				System.out.println(arg2);
 
 				Status status = adapter.getItem(arg2);
 
@@ -144,7 +150,16 @@ public class PhotoListFragment extends Fragment implements OnClickListener {
 			}
 		});
 
-		new LoadPoiPhotoListTsaks().execute(Weibo.getInstance());
+		if (savedInstanceState != null) {
+			page = savedInstanceState.getInt("page");
+			ArrayList<Status> status = savedInstanceState
+					.getParcelableArrayList("list");
+			adapter = new PhotoAdapter(getActivity(), status);
+			actualListView.setAdapter(adapter);
+			adapter.notifyDataSetChanged();
+		} else {
+			new LoadPoiPhotoListTsaks().execute(Weibo.getInstance());
+		}
 
 		return view;
 	}
@@ -163,8 +178,6 @@ public class PhotoListFragment extends Fragment implements OnClickListener {
 			}
 
 			if (geo != null) {
-				System.out.println("*******照********");
-				System.out.println(getNearbyPhotos(params[0]));
 				return getNearbyPhotos(params[0]);
 			}
 

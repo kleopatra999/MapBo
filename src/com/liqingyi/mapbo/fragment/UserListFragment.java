@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
+import android.widget.GridView;
 import com.liqingyi.mapbo.PoiUserListActivity;
 import com.liqingyi.mapbo.R;
 import com.liqingyi.mapbo.adapter.UserAdapter;
@@ -20,7 +20,7 @@ import com.liqingyi.mapbo.model.Poi;
 import com.liqingyi.mapbo.model.User;
 import com.liqingyi.mapbo.model.UserList;
 import com.liqingyi.mapbo.pulltorefresh.PullToRefreshBase.OnRefreshListener;
-import com.liqingyi.mapbo.pulltorefresh.PullToRefreshListView;
+import com.liqingyi.mapbo.pulltorefresh.PullToRefreshGridView;
 import com.weibo.net.Utility;
 import com.weibo.net.Weibo;
 import com.weibo.net.WeiboException;
@@ -33,8 +33,8 @@ public class UserListFragment extends Fragment {
 
 	private ArrayList<User> users;
 
-	private PullToRefreshListView mPullToRefreshListView;
-	private ListView actualListView;
+	private PullToRefreshGridView mPullToRefreshListView;
+	private GridView actualListView;
 	private int page = 1;
 	private UserAdapter userAdapter;
 
@@ -65,7 +65,7 @@ public class UserListFragment extends Fragment {
 			Bundle savedInstanceState) {
 
 		View view = inflater.inflate(R.layout.fragment_users, container, false);
-		mPullToRefreshListView = (PullToRefreshListView) view
+		mPullToRefreshListView = (PullToRefreshGridView) view
 				.findViewById(R.id.list_users);
 		mPullToRefreshListView.setOnRefreshListener(new OnRefreshListener() {
 
@@ -85,7 +85,7 @@ public class UserListFragment extends Fragment {
 					long arg3) {
 				Intent intent = new Intent(getActivity(),
 						PoiUserListActivity.class);
-				intent.putExtra("user", userAdapter.getItem(arg2 - 1));
+				intent.putExtra("user", userAdapter.getItem(arg2));
 				startActivity(intent);
 
 			}
@@ -130,7 +130,7 @@ public class UserListFragment extends Fragment {
 
 				userAdapter = new UserAdapter(getActivity(), users);
 				actualListView.setAdapter(userAdapter);
-				actualListView.setSelection(10 * (page - 1));
+				actualListView.setSelection(12 * (page - 1));
 				userAdapter.notifyDataSetChanged();
 
 			}
@@ -154,7 +154,7 @@ public class UserListFragment extends Fragment {
 		bundle.add("lat", geo.getLat());
 		bundle.add("long", geo.getLon());
 		bundle.add("range", "2000");
-		bundle.add("count", "10");
+		bundle.add("count", "12");
 		bundle.add("page", Integer.toString(page));
 
 		bundle.add("starttime", "");
@@ -184,7 +184,7 @@ public class UserListFragment extends Fragment {
 		WeiboParameters bundle = new WeiboParameters();
 		bundle.add("source", Weibo.getAppKey());
 		bundle.add("poiid", poi.getPoiid());
-		bundle.add("count", "10");
+		bundle.add("count", "12");
 		bundle.add("page", Integer.toString(page));
 		bundle.add("base_app", "0");
 

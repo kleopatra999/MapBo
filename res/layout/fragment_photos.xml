@@ -9,10 +9,12 @@
         android:id="@+id/listView_photos"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:baselineAligned="true"
         android:horizontalSpacing="8dp"
         android:layoutAnimation="@anim/layout_bottom_to_top_slide"
         android:numColumns="2"
         android:persistentDrawingCache="animation|scrolling"
+        android:showDividers="end"
         android:stretchMode="columnWidth"
         android:verticalSpacing="8dp"
         ptr:ptrMode="pullUpFromBottom" />

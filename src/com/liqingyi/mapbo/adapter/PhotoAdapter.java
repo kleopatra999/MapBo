@@ -2,6 +2,14 @@ package com.liqingyi.mapbo.adapter;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 import com.liqingyi.mapbo.R;
 import com.liqingyi.mapbo.model.Annotation;
 import com.liqingyi.mapbo.model.Place;
@@ -9,19 +17,12 @@ import com.liqingyi.mapbo.model.Status;
 import com.liqingyi.mapbo.util.UIUtils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import android.content.Context;
-import android.text.Html;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 public class PhotoAdapter extends BaseAdapter {
 
 	private ArrayList<Status> list;
-	private DisplayImageOptions options;
+	private DisplayImageOptions photo_options;
+	private DisplayImageOptions user_options;
 	private ImageLoader imageLoader;
 	private LayoutInflater mInflater;
 
@@ -29,10 +30,15 @@ public class PhotoAdapter extends BaseAdapter {
 		super();
 		this.list = list;
 		this.mInflater = LayoutInflater.from(context);
-		options = new DisplayImageOptions.Builder()
-				.showStubImage(R.drawable.ic_launcher).cacheInMemory()
+		photo_options = new DisplayImageOptions.Builder()
+				.showStubImage(R.drawable.bg_picture).cacheInMemory()
+				.cacheOnDisc().build();
+
+		user_options = new DisplayImageOptions.Builder()
+				.showStubImage(R.drawable.icon_picture).cacheInMemory()
 				.cacheOnDisc().build();
 		imageLoader = ImageLoader.getInstance();
+
 	}
 
 	@Override
@@ -62,12 +68,9 @@ public class PhotoAdapter extends BaseAdapter {
 					.findViewById(R.id.photo_thumbnail_pic);
 			holder.created_at = (TextView) convertView
 					.findViewById(R.id.photo_created_at);
-			// holder.text = (TextView)
-			// convertView.findViewById(R.id.photo_text);
+
 			holder.screen_name = (TextView) convertView
 					.findViewById(R.id.photo_screen_name);
-			holder.source = (TextView) convertView
-					.findViewById(R.id.photo_source);
 
 			holder.distance = (TextView) convertView
 					.findViewById(R.id.photo_distance);
@@ -83,12 +86,12 @@ public class PhotoAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		Status status = getItem(position);
+		final Status status = getItem(position);
 		imageLoader.displayImage(status.getThumbnail_pic(),
-				holder.thumbnail_pic, options);
+				holder.thumbnail_pic, photo_options);
 
 		imageLoader.displayImage(status.getUser().getProfile_image_url(),
-				holder.profile_image_url, options);
+				holder.profile_image_url, user_options);
 		try {
 			ArrayList<Annotation> annotations = status.getAnnotations();
 			if (!annotations.isEmpty())
@@ -98,6 +101,9 @@ public class PhotoAdapter extends BaseAdapter {
 
 					holder.title.setText(place.getTitle());
 				}
+			else {
+				holder.title.setVisibility(View.INVISIBLE);
+			}
 		} catch (Exception e) {
 
 		}
@@ -109,10 +115,13 @@ public class PhotoAdapter extends BaseAdapter {
 			e.printStackTrace();
 		}
 
-		// holder.text.setText(status.getText());
 		holder.screen_name.setText(status.getUser().getScreen_name());
-		holder.source.setText(Html.fromHtml(status.getSource()));
-		holder.distance.setText(Long.toString(status.getDistance()));
+
+		if (status.getDistance() != 0) {
+			holder.distance.setText(Long.toString(status.getDistance()));
+		} else {
+			holder.distance.setVisibility(View.GONE);
+		}
 		return convertView;
 	}
 
@@ -120,11 +129,10 @@ public class PhotoAdapter extends BaseAdapter {
 		ImageView thumbnail_pic;
 		ImageView profile_image_url;
 		TextView created_at;
-		// TextView text;
-		TextView source;
 		TextView screen_name;
 		TextView distance;
 		TextView title;
+
 	}
 
 }

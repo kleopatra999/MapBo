@@ -11,7 +11,6 @@ import android.view.MenuItem;
 import com.liqingyi.mapbo.actionbarcompat.BaseActivity;
 import com.liqingyi.mapbo.adapter.TabsAdapter;
 import com.liqingyi.mapbo.fragment.PhotoListFragment;
-import com.liqingyi.mapbo.fragment.TimeLimeListFragment;
 import com.liqingyi.mapbo.fragment.UserListFragment;
 import com.liqingyi.mapbo.model.Poi;
 
@@ -41,13 +40,12 @@ public class PoiActivity extends BaseActivity {
 		Bundle bundle = new Bundle();
 		bundle.putParcelable("poi", poi);
 		bundle.putBoolean("is", false);
+		
+		mTabsAdapter.addTab(bar.newTab().setText("照片"),
+				PhotoListFragment.class, bundle);
 
 		mTabsAdapter.addTab(bar.newTab().setText("签到人"),
 				UserListFragment.class, bundle);
-		mTabsAdapter.addTab(bar.newTab().setText("动态"),
-				TimeLimeListFragment.class, bundle);
-		mTabsAdapter.addTab(bar.newTab().setText("照片"),
-				PhotoListFragment.class, bundle);
 
 	}
 

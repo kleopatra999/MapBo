@@ -17,21 +17,33 @@
  * limitations under the License.
  */
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="#eaeaea"
-    >
-    
-	<Button
-		android:id="@+id/btnLogin"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="login"/>
-	<TextView
-		android:id="@+id/tvToken"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="null"/>
-</LinearLayout>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/tvToken"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:shadowColor="@color/holo_purple"
+        android:shadowDx="3"
+        android:shadowDy="3"
+        android:shadowRadius="1.5"
+        android:text="WeiMap"
+        android:textColor="@color/holo_blue_bright"
+        android:textSize="55sp" />
+
+    <ImageView
+        android:id="@+id/image_sina_weibo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvToken"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="48dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/sina_weibo" />
+
+</RelativeLayout>

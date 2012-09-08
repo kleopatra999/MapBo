@@ -111,8 +111,6 @@ public class TipListFragment extends Fragment {
 		protected void onPostExecute(String result) {
 			System.out.println("--------------------");
 
-			System.out.println(result);
-
 			if (!"".equals(result) && !"[]".equals(result)) {
 
 				Statuses statuses = Statuses.newStatuses(result);
@@ -178,7 +176,7 @@ public class TipListFragment extends Fragment {
 		bundle.add("poiid", poi.getPoiid());
 		bundle.add("count", "10");
 		bundle.add("page", Integer.toString(page));
-		bundle.add("sort", "0");
+		bundle.add("sort", "1");
 		bundle.add("base_app", "0");
 
 		try {

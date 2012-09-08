@@ -13,7 +13,6 @@ import com.liqingyi.mapbo.actionbarcompat.BaseActivity;
 import com.liqingyi.mapbo.adapter.TabsAdapter;
 import com.liqingyi.mapbo.fragment.PhotoListFragment;
 import com.liqingyi.mapbo.fragment.PoiListFragment;
-import com.liqingyi.mapbo.fragment.TimeLimeListFragment;
 import com.liqingyi.mapbo.fragment.UserListFragment;
 import com.liqingyi.mapbo.model.Geo;
 import com.weibo.net.Utility;
@@ -53,9 +52,6 @@ public class PoiListActivity extends BaseActivity {
 				UserListFragment.class, bundle);
 		mTabsAdapter.addTab(bar.newTab().setText("附近照片"),
 				PhotoListFragment.class, bundle);
-
-		mTabsAdapter.addTab(bar.newTab().setText("周边动态"),
-				TimeLimeListFragment.class, bundle);
 
 	}
 
